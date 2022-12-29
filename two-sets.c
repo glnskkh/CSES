@@ -3,25 +3,50 @@
 
 int main(void)
 {
-  int n, m, i;
+  long long n, k, start, l, i;
 
-  scanf("%d", &n);
+  scanf("%lld", &n);
 
-  if (((n + 1) / 2) % 2 == 0)
+  /* Otherwise there is too few odds */
+  if (((n - 1) / 2) % 2 == 0)
   {
-    puts("NO\n");
-    return EXIT_FAILURE;
+    puts("NO");
+    return EXIT_SUCCESS;
   }
 
-  puts("YES\n");
+  puts("YES");
 
-  /* Write a distribution system */
+  l = n * (n + 1) / 4;
 
-  m = ((n - 1) / 2) * 2 + 1;
+  k = i = 0;
+  while (k < l)
+    k += n + 1 - (++i);
 
-  if (n == m)
+  k = i * (i + 1) / 2;
+  while (k % i != l % i)
+    k += ++i;
+
+  k = abs(l - k) / i + 1;
+
+  printf("%lld\n", i);
+
+  for (l = k; l < k + i; ++l)
+    printf("%lld ", l);
+
+  printf("\n%lld\n", n - i);
+
+  for (l = 1; l <= n; ++l)
   {
-    for (i = 1; i <= n; i += 2)
-      if (n
+    if (l == k)
+    {
+      l += i - 1;
+      continue;
+    }
+
+    printf("%lld ", l);
   }
+
+  printf("\n");
+
+  return EXIT_SUCCESS;
 }
